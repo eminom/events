@@ -22,21 +22,25 @@ function dispatchFile(request, response){
 		}
 
 		var delay = Math.floor(Math.random() * df.delayVar + df.delayFixed);
-		setTimeout(function(){
-
-		if(stat.isFile()){
-			var rs = fs.createReadStream(now);
-			var content_type = getContentType(pathname);
-			response.writeHead(200, {
-				'Content-Type':content_type
-			});
-			rs.pipe(response);
+		var castHandler = function() {
+			if(stat.isFile()){
+				var rs = fs.createReadStream(now);
+				var content_type = getContentType(pathname);
+				response.writeHead(200, {
+					'Content-Type':content_type
+				});
+				rs.pipe(response);
+			} else {
+				response.writeHead(500,{'Content-Type':'text/plain'});
+				response.end();
+				return;
+			}
+		};
+		if(delay<=0){
+			castHandler();
 		} else {
-			response.writeHead(500,{'Content-Type':'text/plain'});
-			response.end();
-			return;
+			setTimeout(castHandler, delay * 1000);
 		}
-		}, delay * 1000);
 	});
 }
 
