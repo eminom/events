@@ -6,18 +6,11 @@ var castFile = require('./castfile').handler;
 var dispatcher = function(req, res){
 	var pathname = url.parse(req.url).pathname;
 	basename = getRouteBase(pathname);
-
-	if(typeof(routes[pathname])=='function')
-	{
+	if(typeof(routes[pathname])=='function') {
 		routes[pathname](req,res);
-	} 
-	else if(typeof(routes[basename])=='function')
-	{
-		//
+	} else if(typeof(routes[basename])=='function')	{
 		routes[basename](req,res);
-	} 
-	else 
-	{
+	} else {
 		//console.log('cast file >>');
 		castFile(req, res)
 	}
