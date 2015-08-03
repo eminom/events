@@ -6,9 +6,8 @@ var getContentTypeFromFileName = function(name){
 		suffix = name.substr(lpos+1);
 	}
 
-	var rv_type = 'text/plain';
+	var rv_type = 'application/octet-stream';
 	switch(suffix.toLowerCase()){
-	case 'dat':
 	case 'txt':
 		rv_type = 'text/plain';
 		break;
