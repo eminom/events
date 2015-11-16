@@ -32,6 +32,7 @@ function dispatchFile(request, response){
 				rs.pipe(response);
 			} else {
 				response.writeHead(500,{'Content-Type':'text/plain'});
+				response.write("Resource not found.");
 				response.end();
 				return;
 			}
